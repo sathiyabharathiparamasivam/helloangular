@@ -4,38 +4,38 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [ opened, synchronize, reopened, closed ]
 
 jobs:
-  build_and_deploy_job:
+  build_and_deploy:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy
+    name: Build & Deploy
     steps:
-      # 1. Checkout code
+      # 1. Checkout
       - uses: actions/checkout@v4
 
-      # 2. SET NODE VERSION TO 20 (CRITICAL)
-      - name: Use Node.js 20
+      # 2. Use Node 20 (THIS WILL BE RESPECTED)
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20.19'
           cache: 'npm'
 
-      # 3. Install dependencies
+      # 3. Install
       - name: Install dependencies
         run: npm ci
 
-      # 4. Build Angular
-      - name: Build Angular App
+      # 4. Build
+      - name: Build Angular
         run: npm run build -- --configuration production
 
-      # 5. Deploy to Azure Static Web Apps
-      - name: Deploy to Azure
+      # 5. Deploy ONLY the built files (SKIP Oryx build)
+      - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{6502fe2db4c9e74590b101fabde55fbe25c7c027995a8cd813b24357b189f2df03-1fcd6a99-48f6-474e-944a-e515d85e967701018270228f1810}}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          azure_static_web_apps_api_token: ${{ 6502fe2db4c9e74590b101fabde55fbe25c7c027995a8cd813b24357b189f2df03-1fcd6a99-48f6-474e-944a-e515d85e967701018270228f1810 }}
           action: "upload"
-          app_location: "/"                     # Source code root
-          output_location: "dist/HelloAngular"  # <-- Your dist folder
+          app_location: "/"                     # Not used when skip_app_build=true
+          output_location: "dist/primeblocks"   # Your actual dist folder
+          skip_app_build: true                  # THIS IS THE KEY
