@@ -19,8 +19,9 @@ jobs:
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.19'
+          node-version: '20'       
           cache: 'npm'
+          
 
       # 3. Install
       - name: Install dependencies
@@ -39,5 +40,6 @@ jobs:
           app_location: "/"                     # Not used when skip_app_build=true
           output_location: "dist/primeblocks"   # Your actual dist folder
           skip_app_build: true                  # THIS IS THE KEY
+
 
 
