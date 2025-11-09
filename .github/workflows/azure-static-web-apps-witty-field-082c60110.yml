@@ -34,9 +34,10 @@ jobs:
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.6502fe2db4c9e74590b101fabde55fbe25c7c027995a8cd813b24357b189f2df03-1fcd6a99-48f6-474e-944a-e515d85e967701018270228f1810 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WITTY_FIELD_082C60110 }}
           action: "upload"
           app_location: "/"                     # Not used when skip_app_build=true
           output_location: "dist/primeblocks"   # Your actual dist folder
           skip_app_build: true                  # THIS IS THE KEY
+
 
