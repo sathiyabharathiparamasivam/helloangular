@@ -40,3 +40,4 @@ jobs:
           output_location: "dist/primeblocks"   # Your actual dist folder
           skip_app_build: true                  # THIS IS THE KEY
 
+
